@@ -36,7 +36,7 @@ var Task = function(task_hash){
     var html = '';
 
     $.each(this.errors, function(attr,error){
-      html += '<p>' + attr.capitalize() + ': ' + error + '</p>'
+      html += '<p>' + attr.split('_').map(x => x.capitalize()).join(' ') + ': ' + error + '</p>'
     });
 
     return html;

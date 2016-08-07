@@ -60,16 +60,25 @@
       var data = $('form').serialize();
     
       $.post('/tasks',data)
-       .done(function(response){
+       .done(function(response, statusText, xhr){
         var task = new Task(response);
 
-        if (task.errors){
+        if (xhr.status != 201){
           $('#errors').html(task.format_errors());
           $('#errors').show();
 
         } else {
-          
+          $('#tasks').append(
+            '<h5>' + task.linkHTMLString() + '</h5>' +
+            '<p>Due: ' + task.format_due_date + '<p>' +
+            '<p>Status:  ' + task.status + '</p>' +
+            '<hr >'
+          );
+ 
+          $('form')[0].reset();
         } 
+
+        $('form').find('input:submit').removeAttr('disabled');
       });
     });
   });
