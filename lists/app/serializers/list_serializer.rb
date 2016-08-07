@@ -1,4 +1,10 @@
 class ListSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  include Policy
+
+  attributes :id, :name, :collaborators, :editable
   has_many :tasks, serializer: ListTaskSerializer
+
+  def editable
+    authorize_resource(current_user,object,:edit)
+  end
 end

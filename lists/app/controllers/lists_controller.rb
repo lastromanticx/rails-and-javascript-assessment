@@ -15,6 +15,11 @@ class ListsController < ApplicationController
       redirect_to user_path(current_user)
     end
     @task = Task.new
+    
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @list }
+    end
   end
 
   def new
