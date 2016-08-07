@@ -1,8 +1,17 @@
 <%= render partial: "layouts/single_center_top" %>
 
   <h3>My Lists</h3>
-  <% @lists.each do |list| %>
-    <h4><%= link_to list.name, list_path(list) %></h4>
-  <% end %>
+  <p>&nbsp;</p>
+  <div id="lists"></div>
 
 <%= render partial: "layouts/single_center_bottom" %>
+
+<script type="text/javascript" charset="utf-8">
+  $.get('/lists.json',function(data){
+    $.each(data, function(i,list){
+      $("#lists").append(
+        '<h4><a href="/lists/' + list.id + '">' + list.name +'</a></h4>'  
+      );  
+    });
+  });
+</script>

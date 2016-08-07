@@ -1,6 +1,10 @@
 class ListsController < ApplicationController
   def index
     @lists = current_user.lists
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @lists }
+    end
   end
 
   def show
