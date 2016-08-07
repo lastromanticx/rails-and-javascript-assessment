@@ -9,11 +9,13 @@
 <script type="text/javascript" charset="utf-8">
   $(function(){
     $.get('/lists.json',function(data){
-      $.each(data, function(i,list){
+      $.each(data, function(i,list_hash){
+        var list = new List(list_hash);
+
         $("#lists").append(
-          '<h4><a href="/lists/' + list.id + '">' + list.name +'</a></h4>'  
+          '<h4>' + list.linkHTMLString() + '</h4>'
         );  
       });
-      });
+    });
   });
 </script>

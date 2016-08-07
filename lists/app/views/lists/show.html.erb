@@ -25,19 +25,23 @@
 <script type="text/javascript" charset="utf-8">
   $(function(){
     $.get('/lists/' + <%= @list.id %> + '.json',function(data){  
+      var list = new List(data);
+
       $('#list').html(
-        '<h2>' + data.name + '</h2>' +
-        (data.editable ? '<a href="/lists/' + data.id + '/edit">Edit</a>' : '')
+        '<h2>' + list.name + '</h2>' + 
+        list.editLinkHTMLString()
       );
 
-      $('#collaborators').text( data.collaborators );
+      $('#collaborators').text( list.collaborators );
 
-      if (data.tasks.length == 0){
+      if (list.tasks.length == 0){
         $('#tasks').text( 'There are no tasks in this list.' );
       } else {
-        $.each(data.tasks,function(i,task){
+        $.each(list.tasks,function(i,task_hash){
+          var task = new Task(task_hash);
+
           $('#tasks').append(
-            '<h5><a href="/lists/' + data.id + '/tasks/' + task.id + '">' + task.name + '</a></h5>' +
+            '<h5>' + task.linkHTMLString() + '</h5>' +
             '<p>Due: ' + task.format_due_date + '<p>' +
             '<p>Status:  ' + task.status + '</p>' +
             '<hr >'
