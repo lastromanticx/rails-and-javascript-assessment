@@ -12,7 +12,7 @@ class ListsController < ApplicationController
     if @list.nil?
       not_found
     elsif !authorize_resource(current_user,@list,:show)
-      redirect_to user_path(current_user)
+      return redirect_to lists_path
     end
     @task = Task.new
     
@@ -43,7 +43,7 @@ class ListsController < ApplicationController
     if @list.nil?
       not_found
     elsif !authorize_resource(current_user,@list,:edit)
-      redirect_to lists_path
+      return redirect_to lists_path
     end
   end
 
