@@ -37,10 +37,10 @@
       } else {
         $.each(data.tasks,function(i,task){
           $('#tasks').append(
-            '<h5><a href="/lists/' + data.id + '/tasks/' + task.id + '">' + task.name + '</a></h5>' 
-   /* <p>Due:  task.due_date.strftime("%A, %B %e, %Y")  " (OVERDUE)" if task.overdue %></p>
-    <p>Status:  task.status %></p>
-    <hr >*/
+            '<h5><a href="/lists/' + data.id + '/tasks/' + task.id + '">' + task.name + '</a></h5>' +
+            '<p>Due: ' + task.format_due_date + '<p>' +
+            '<p>Status:  ' + task.status + '</p>' +
+            '<hr >'
           );
         });
       }
