@@ -40,6 +40,7 @@ group :development, :test do
   gem 'omniauth-github'
   gem 'devise-bootstrap-views'
   gem 'dotenv-rails'
+  gem 'active_model_serializers'
 end
 
 group :development do
