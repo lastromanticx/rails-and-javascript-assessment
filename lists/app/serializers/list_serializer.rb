@@ -1,7 +1,7 @@
 class ListSerializer < ActiveModel::Serializer
   include Policy
 
-  attributes :id, :name, :collaborators, :editable
+  attributes :id, :name, :collaborators, :editable, :errors
   has_many :tasks, serializer: ListTaskSerializer
 
   def collaborators

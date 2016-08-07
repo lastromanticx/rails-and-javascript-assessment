@@ -1,13 +1,14 @@
 class TasksController < ApplicationController
   def create
-    @task = Task.new(task_params)
-    if not @task.save
-      @list = List.find(params[:task][:list_id])
-      return render '/lists/show', id: params[:task][:list_id]
-    end
-    @task.update(status: "Incomplete")
+    task = Task.new(task_params)
+    status = 200
 
-    redirect_to list_path(task_params[:list_id]) 
+    if task.save 
+      task.update(status: "Incomplete")
+      status = 201
+    end
+
+    render json: task, status: status
   end
 
   def show

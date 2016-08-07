@@ -18,12 +18,16 @@
 
   <h5>Add Task</h5>
 
+  <div id="errors" class="alert alert-warning"></div>
+
 <%= render partial: "tasks/form", locals: {task: @task, list: @list} %>
 
 <%= render partial: "layouts/single_center_bottom" %>
 
 <script type="text/javascript" charset="utf-8">
   $(function(){
+    $('#errors').hide();
+
     $.get('/lists/' + <%= @list.id %> + '.json',function(data){  
       var list = new List(data);
 
@@ -48,6 +52,25 @@
           );
         });
       }
+    });
+
+    $('form').submit(function(event){
+      event.preventDefault();
+
+      var data = $('form').serialize();
+    
+      $.post('/tasks',data)
+       .done(function(response){
+        var task = new Task(response);
+
+        if (task.errors){
+          $('#errors').html(task.format_errors());
+          $('#errors').show();
+
+        } else {
+          
+        } 
+      });
     });
   });
 </script>
