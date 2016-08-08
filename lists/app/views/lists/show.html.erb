@@ -39,6 +39,7 @@
 
       if (list.tasks.length == 0){
         $('#tasks').text( 'There are no tasks in this list.' );
+        
       } else {
         $.each(list.tasks,function(i,task_hash){
           var task = new Task(task_hash);
@@ -65,9 +66,12 @@
           $('#errors').show();
 
         } else {
-          $('#tasks').append(
-            task.listTaskHTML()
-          );
+          if ($('#tasks').html() == "There are no tasks in this list."){
+            $('#tasks').html(task.listTaskHTML());
+
+          } else {
+            $('#tasks').append(task.listTaskHTML());
+          }
 
           // render new tag check box
           if (newTag.match(/\S/)){
