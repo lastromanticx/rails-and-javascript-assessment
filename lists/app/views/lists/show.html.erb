@@ -44,10 +44,7 @@
           var task = new Task(task_hash);
 
           $('#tasks').append(
-            '<h5>' + task.linkHTMLString() + '</h5>' +
-            '<p>Due: ' + task.format_due_date + '<p>' +
-            '<p>Status:  ' + task.status + '</p>' +
-            '<hr >'
+            task.listTaskHTML()
           );
         });
       }
@@ -56,8 +53,9 @@
     $('form').submit(function(event){
       event.preventDefault();
 
-      var data = $('form').serialize();
-    
+      var newTag = $('#task_tags_attributes_0_name').val(),
+          data = $('form').serialize();
+
       $.post('/tasks',data)
        .done(function(response, statusText, xhr){
         var task = new Task(response);
@@ -68,11 +66,22 @@
 
         } else {
           $('#tasks').append(
-            '<h5>' + task.linkHTMLString() + '</h5>' +
-            '<p>Due: ' + task.format_due_date + '<p>' +
-            '<p>Status:  ' + task.status + '</p>' +
-            '<hr >'
+            task.listTaskHTML()
           );
+
+          // render new tag check box
+          if (newTag.match(/\S/)){
+            var lastTagId = task.tags[task.tags.length - 1].id
+
+            if ($('#tag-check-boxes input:last-child').length == 0){
+              $('#tag-check-boxes').html('<input type="hidden" name="task[tag_ids][]" value="" />');
+            }
+          
+            $('#tag-check-boxes').append(
+              '<input type="checkbox" value="' + lastTagId + 
+              '" name="task[tag_ids][]" id="task_tag_ids_' + lastTagId + '" />' + newTag + '&nbsp;'
+            );
+          }
           
           $('#errors').hide();
           $('form')[0].reset();
