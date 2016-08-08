@@ -18,7 +18,7 @@ Like 'collaborators', tags are also set via a custom `tags_attributes=` method f
 
 As with allocating logic to models and helpers as much as possible, as much as I could, I chose to extract reusable views into partials - the same form for `new` and `edit`, as well as a `top` and `bottom` Boostrap column layout; and the customary `nav` and flash message templating. Validation errors are rendered with a Boostrap 'alert' class. A partial and ListsHelper extract the formatting for search query results.
 
-This version of Lists uses jQuery and an Active Model Serialization JSON Backend for the lists index and show page (the latter includes a new task form as well). One of the challenges was to customize the list serializer to also return a permission status for rendering the edit link as well as including the custom 'collaborators' method. Additionally, implementing submission error display invloved a javascript model formatter and jQuery DOM manipulation.
+This version of Lists uses jQuery and an Active Model Serialization JSON Backend for the lists index and show page (the latter includes a new task form as well). One of the challenges was to customize the list serializer to also return a permission status for rendering the edit link as well as including the custom 'collaborators' method. Additionally, implementing submission error display invloved a javascript model formatter and jQuery DOM manipulation; and appending a new tag without refresh also required significant consideration and implementation.
 
 ### Controllers
 
