@@ -91,7 +91,8 @@
           $('form')[0].reset();
         } 
 
-        $('form').find('input:submit').removeAttr('disabled');
+        // re-enable form submit
+        setTimeout(function(){ $('form input:submit').removeAttr('disabled'); },500);
       });
     });
   });
